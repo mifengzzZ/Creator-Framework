@@ -1,0 +1,13 @@
+{
+    "version": "1.0.2",
+    "serverRootDir": "https://yiqihapi.oss-cn-shenzhen.aliyuncs.com/appgame/update",
+    "resourceRootDir": "F:\\me\\TsBasicFrame\\build\\jsb-default",
+    "genManifestDir": "",
+    "hotAddressArray": [
+        "http://",
+        "https://yiqihapi.oss-cn-shenzhen.aliyuncs.com/appgame/update"
+    ],
+    "buildTime": 1610694590539,
+    "genTime": 1610694590539,
+    "genVersion": null
+}

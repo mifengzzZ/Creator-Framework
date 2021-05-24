@@ -1,0 +1,26 @@
+{
+    "paths": {
+        "20jE5WSFhFF5v3OzU9vB7u": [
+            "project",
+            "cc.Asset"
+        ],
+        "18y74NSr9LMqf8rFxE0Ldb": [
+            "version",
+            "cc.Asset"
+        ]
+    },
+    "uuids": [
+        "18y74NSr9LMqf8rFxE0Ldb",
+        "20jE5WSFhFF5v3OzU9vB7u"
+    ],
+    "scenes": {},
+    "redirect": [],
+    "deps": [],
+    "packs": null,
+    "name": "resources",
+    "importBase": "import",
+    "nativeBase": "native",
+    "debug": true,
+    "isZip": false,
+    "encrypted": false
+}

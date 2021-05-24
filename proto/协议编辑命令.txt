@@ -1,0 +1,3 @@
+pbjs -t static-module -w commonjs -o ../../../proto/pdk/protoPaodekuai.js ../../../proto/pdk/protoPaodekuai.proto
+
+pbts -o ../../../proto/pdk/protoPaodekuai.d.ts ../../../proto/pdk/protoPaodekuai.js

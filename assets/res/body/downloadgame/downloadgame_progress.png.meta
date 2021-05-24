@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "bb86c992-c159-479a-939c-214c141b5561",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 402,
+  "height": 31,
+  "platformSettings": {},
+  "subMetas": {
+    "downloadgame_progress": {
+      "ver": "1.0.4",
+      "uuid": "e3d2b385-76c3-440c-a747-4d0c832001e1",
+      "rawTextureUuid": "bb86c992-c159-479a-939c-214c141b5561",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 402,
+      "height": 31,
+      "rawWidth": 402,
+      "rawHeight": 31,
+      "borderTop": 7,
+      "borderBottom": 9,
+      "borderLeft": 195,
+      "borderRight": 196,
+      "subMetas": {}
+    }
+  }
+}

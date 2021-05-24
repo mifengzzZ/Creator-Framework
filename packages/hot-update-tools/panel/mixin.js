@@ -1,0 +1,1 @@
+const Msg=Editor.require("packages://hot-update-tools/panel/msg.js"),Fs=require("fs"),Electron=require("electron");module.exports={methods:{log(e){this.$root.$emit(Msg.Log,e)},openDir(e){Fs.existsSync(e)&&(Electron.remote.shell.showItemInFolder(e),Electron.remote.shell.beep())}}};

@@ -1,0 +1,104 @@
+syntax = "proto3";
+package protoLogin;
+
+// 成员基本信息
+message UserBaseInfo {
+    uint32 aid = 1;     // 用户数字 ID
+    string uid = 2;     // 用户唯一  ID
+    string avatar_url = 3;  // 用户头像
+    string user_nick = 4;   // 用户昵称
+    uint32 role = 5;     // 角色，0 普通用户 1 管理员 2 创建者
+    uint32 state = 7;    // 用户的状态，// 0，等待审核通过；1，已经是成员；2，取消授权；3，拒绝；4，屏蔽; 5被冻结
+    string permissions = 8; // 权限， 1 代扣权限 2 标记权限 。如“1,2” 用逗号隔开
+    uint32 groupid = 9; //分组编号
+    string groupname = 10;//分组名称
+    uint32 score = 11;
+}
+
+// 用户域名信息
+message UserDomain {
+    string update=1;            // 热更域名
+    string login=2;             // 登录域名
+    string pay=3;               // 支付域名
+}
+
+// 成员游戏信息
+message UserCurrencyInfo {
+    int32 coin = 1;                 // 用户硬币
+    int32 gold = 2;                 // 用户金币
+    int32 diamond = 3;              // 用户钻石
+}
+
+// 重连信息
+message ReconnectionInfo {
+    bool state = 1;         // 是否重连状态，true 为可以重连。false 为不重连
+    uint32 room_id = 2;     // 返回重连房间 ID
+    uint32 game_id = 3;     // 返回重连房间 ID
+    string server_ip = 4;   // 重连ip
+    uint32 server_port = 5;  // 重连端口
+}
+
+// 用户社交信息
+message UserSocial {
+    uint32 gender = 1;      // 用户性别
+    uint32 round = 2;       // 用户局数
+    uint32 reg_time = 3;    // 用户注册时间
+    uint32 grade = 4;       // 用户评价
+}
+
+// ------------------------------------------------------------------------------------------------------------------------------------------
+
+// 登录请求的数据
+message LoginRequest {
+	string open_id = 1;                 // 唯一标识符
+    int32 channel = 2;                  // 登录标识；1，游客测试；2，手机测试；3，自动登录测试； 4，游客登录；5，手机登录；6，自动登录
+    int32 app_id = 3;                   // APP ID
+    string device_id = 5;               // 设备 ID
+    string ver_id = 6;                  // 客户端版本号
+    string location = 7;                // 用户地理位置
+}
+
+// 登录返回信息
+message LoginResponse {
+	uint32 code = 1;                    // 1 为成功
+    string open_id = 2;                 // 返回的 open id。
+    string session_key = 3;              // 微信登录成功的 SESSION KEY
+    uint32 invitation = 4;              // 用户注册码
+    uint32 parent_id = 5;               // 用户代理信息
+    string ip = 6;               // 用户 IP
+    string location = 7;        // 用户地理位置信息
+    bool ios_review = 8;               // iOS 审核
+    bool is_black = 9;               // 是否被屏蔽
+    string notice = 10;                 // 显示的公告
+    string share_url = 11;              // 分享下载地址
+    bool non_member_recharge = 12;      // 非会员充值开关
+    UserDomain user_domain = 13;         // 返回域名信息
+    UserBaseInfo user_base_info = 14;    // 用户基础信息
+    UserCurrencyInfo user_coin = 15;  // 用户消费信息
+    ReconnectionInfo reconnection_info = 16; // 用户重连信息
+    UserSocial user_social = 17;            // 用户社交信息
+	uint32 is_flag = 18;              // 是否已首冲金币的标识， 0，代理， 1 不是代理。
+    string announcements = 19;          // 活动列表，JSON
+}
+
+// 请求创建房间
+message RoomCreateRequest {
+    int32 app_id = 1;                   // APP ID
+    int32 game_id = 2;                  // 游戏ID
+    string user_id = 3;                 // 用户 ID
+    string device_id = 4;               // 设备 ID
+    uint32 max_rounds = 5;               // 局数
+    string room_config = 6;             // 房间配置；
+    string core_version = 7;            // 核心版本号
+    uint32 club_id = 8;                 // 俱乐部 ID
+    uint32 club_room_type = 9;               // 俱乐部的创建房间类型， 0 自动开房；1 玩家自建房
+}
+
+// 返回创建房间数据
+message RoomCreateResponse {
+    uint32 code = 1;        // 1 为成功
+    int32 room_id = 2;      // 房间 ID
+    string server_ip = 3;   // 服务器 IP
+    string server_port = 4; // 服务器端口
+    int32 pay_gold = 5;     // 支出金币
+}

@@ -1,0 +1,339 @@
+syntax = "proto3";
+package paodekuai;
+
+message Player{
+    int32 seat = 1; // 座位号
+    string player = 2; // 玩家UUID
+    string info = 3; // 玩家详细信息
+    int32 ready_state = 4; // 玩家准备状态0:没准备，1准备
+    int32 is_online = 5; // 是否在线 0:没在线，1在线
+    int32 score = 6; //玩家剩余总分
+    int32 is_baodan = 7; // 1:是报单玩家,  0:不是报单玩家
+    int32 cards_len = 8;  // 玩家当前手牌张数
+}
+
+//  重连响应-----start-------
+
+
+message ReconnectResponse {
+    repeated int32 p_cards = 1;  // 玩家手牌
+    int32 is_open = 13;  // 0:没翻开, 1:翻开
+    string table_uuid = 2;  // 上一个出牌的玩家
+    repeated int32 table_cards = 3;  // 桌上打出的牌
+    string table_card_type = 4;  // 桌上打出的牌的牌型
+
+    int32 code = 9;
+    uint32 room_id = 10; // 6位房间号
+    string room_kwargs = 11; // json 创建房间参数，由具体游戏各自解析字段
+    string room_owner = 12; // 房主UUID
+    string room_owner_info = 5;
+    int32 room_state = 6; // 房间状态
+    int32 game_rolls = 7; // 当前局数
+    repeated Player player = 8; //所有玩家数据
+}
+
+//  重连响应------end---------
+
+// ------游戏逻辑----------------
+
+// 准备
+message ReadyResponse{
+    int32 code = 1;  // 成功状态
+    string uuid = 2;  // 准备玩家的uuid
+}
+
+// 缺少金币
+message LessGoldResponse{
+    string uuid = 1;
+}
+
+// 发牌
+message DealResponse{
+    repeated int32 cards = 1;
+}
+
+message ReadyRequest{
+    string player = 1;
+}
+
+// 出牌通知
+message StartChuPaiResponse{
+    string card_type = 1;  // 牌型
+    string uuid = 2;
+    string is_first = 3;  // 首次出牌 1:首次出牌,屏蔽提示和不要 0:不是首次出牌
+    string find_333x = 4;  // 1:提示3个3是炸弹的玩家 0:不是
+    string expire_seconds = 5;  // 剩余时间
+}
+
+// 出牌请求
+message ChuPaiRequest{
+    repeated int32 cards = 1;
+}
+
+// 出牌响应
+message ChuPaiResponse{
+    repeated int32 cards = 1;
+    string card_type = 2;  // 牌型
+    string uuid = 3;
+    int32 res = 4;     // 1:成功,  2:失败
+}
+
+// 获取出牌提示
+message PromtRequest{
+}
+
+// 出牌提示响应
+message PromtResponse{
+    int32 code = 2;  // 1:成功,  -1: 失败
+    repeated int32 cards = 1;
+}
+
+
+// 报单或要不起
+message BaoDanResponse{
+    int32 msg = 1;      //  1:报单,   2:要不起
+    string uuid = 2;
+}
+
+// 炸弹结算
+message SettleForBombResponse{
+    message PlayerData {
+        string uuid = 1;  // 玩家uuid
+        int32 win_score = 2;  // 本局输赢分
+    }
+    repeated PlayerData player_data = 1;
+}
+
+
+//单局结算
+message SettleForRoundResponse {
+    message PlayerData {
+        string uuid = 1;  // 玩家uuid
+        int32 win_score = 2;  // 本局输赢分
+        int32 score = 3;  // 玩家的剩余分
+        repeated int32 cards = 4;  // 玩家手牌
+        int32 ext = 5;  // 1:没有特殊牌型, 2:玩家打出了炸弹,  3:玩家是春天,
+        // 4:抓到了红桃十, 5:抓到了红桃十且打出了炸弹, 6:抓到了红桃十且是春天
+        int32 ext_2 = 6;  // 0:啥事没有, 1:关2,  2:被关2
+        int32 ext_3 = 7;  // 0:没有包赔,  1:包赔
+        int32 no_put = 8;  // 剩余张数
+        string mingtang = 9;  // "00000":啥事没有
+        // "10000":全黑   "01000":全红   "00100":全单   "00010":全双  "10100":全黑全单   "00001":5555AAAA
+        int32 ext_4 = 10;  // 0:没事  1:春天  2:摆春
+    }
+    repeated PlayerData player_data = 1;
+    int32 game_rolls = 2; // 第几局
+}
+
+//房间大结算
+message SettleForRoomResponse {
+    message PlayerData {
+        string uuid = 1; // 玩家uuid
+        int32 win_score = 2; // 玩家最后输赢分
+    }
+    int32 code = 1;     // 结算状态
+    repeated PlayerData player_data = 2;
+    int32 game_rolls = 3;  // 一共打了多少局
+}
+
+// ------游戏逻辑----------------
+
+
+message CreateRoomRequest {
+    uint32 room_id = 1; // 6位房间号
+    string owner_uuid = 2; // 房主UUID
+    string kwargs = 3; // json 创建房间参数，由具体游戏各自解析字段
+    string room_uuid = 4; // 房间唯一标识
+    uint32 club_id = 5; // 俱乐部ID
+    string owner_info = 6; // 房主信息
+}
+
+message CreateRoomResponse {
+    uint32 code = 1; // 返回开房结果
+}
+
+message EnterRoomRequest {
+    uint32 room_id = 1; // 6位房间号
+    string player = 3; // 玩家UUID
+    string info = 4; // 玩家详细信息
+}
+
+message EnterRoomOtherResponse {
+    uint32 code = 1; // 返回进入房间结果
+    Player player = 2; // 玩家
+}
+
+message EnterRoomResponse {
+    int32 code = 1;
+    uint32 room_id = 2; // 6位房间号
+    string room_kwargs = 3; // json 创建房间参数，由具体游戏各自解析字段
+    string room_owner = 4; // 房主UUID
+    string room_owner_info = 5;
+    int32 room_state = 6; // 房间状态
+    int32 game_rolls = 7; // 当前局数
+    repeated Player player = 8; //所有玩家数据
+}
+
+
+message MatchRoomRequest {
+    uint32 code = 1;
+    uint32 room_id = 2;
+    string player = 3; // 玩家UUID
+}
+
+message MatchRoomResponse {
+    int32 code = 1;
+}
+
+message EnterRoomWebResponse {
+    uint32 code = 1; // 返回进入房间结果
+    uint32 room_id = 2; // 6位房间号
+    string player = 3; // 玩家UUID
+    uint32 game_type = 4;
+    uint32 app_id = 5;
+    uint32 club_id = 6;
+}
+
+message ExistRoomWebRequest {
+    uint32 room_id = 1;
+}
+
+message ExistRoomWebResponse {
+    bool flag = 1;
+}
+
+message ExitRoomWebResponse {
+    int32 code = 1; // 返回退出房间结果
+    uint32 room_id = 2; // 6位房间号
+    string player = 3; // 玩家UUID
+    uint32 game_type = 4;
+    uint32 app_id = 5;
+    uint32 club_id = 6;
+}
+
+message ExitRoomRequest {
+}
+
+message ExitRoomResponse {
+    int32 code = 1; // 返回退出房间结果
+    string player = 2; // 玩家UUID
+    int32 type = 3; //玩家退出类型 1：正常退出，2：玩家分值不够被系统踢出
+    //错误消息 1:正常退出 ，101：正在游戏中，玩家不能退出 ，
+    //102：换庄后新庄家不能退出 103："换庄后闲家已经下注，不能退出
+    int32 msg = 4;
+}
+
+// 游戏开始
+message StartResponse {
+    int32 game_rolls = 1;  //   第几局游戏
+    repeated int32 used_cards = 2;    // 用过的牌
+}
+
+//解散房间请求
+message DismissRoomWebRequest {
+    uint32 room_id = 1; // 6位房间号
+    uint32 game_type = 2;
+    uint32 app_id = 3;
+    string owner = 4;
+    string room_uuid = 5;
+}
+
+message DismissRoomWebResponse {
+    int32 code = 1; // 返回解散房间结果
+    uint32 room_id = 2; // 6位房间号
+    uint32 game_type = 3;
+    uint32 app_id = 4;
+    string owner = 5;
+}
+
+message DismissRoomRequest {
+}
+
+message DismissRoomResponse {
+    int32 code = 1; // 返回解散房间结果
+    uint32 flag = 2; // 0 房主发起解散 1 投票发起解散,2 房间自动解散
+}
+
+message PlayerVoteRequest {
+    bool flag = 1; //0:不同意 1：同意
+}
+
+message HeartbeatRequest {
+}
+
+message HeartbeatResponse {
+}
+
+message Unit {
+    uint32 room_id = 1; // 6位房间号
+    uint32 room_status = 2; //房间状态
+    repeated string player = 3; // 在房间的玩家UUID
+    string owner = 4;
+    uint32 game_type = 5;
+    uint32 app_id = 6;
+    string room_uuid = 7;
+    uint32 st = 8;
+}
+
+message LoadBalanceWebResponse {
+    repeated Unit unit = 1;
+}
+
+message LoadMinusWebResponse {
+    string addr = 1;
+    uint32 port = 2;
+}
+
+message LoadPlusWebResponse {
+    string addr = 1;
+    uint32 port = 2;
+}
+
+message OnlineStatusResponse {
+    string player = 1; // 玩家UUID
+    bool status = 2; // 0 离线 1 上线
+}
+
+message RunningWebResponse {
+    int32 sessions = 1; // 当前连接数
+    int32 players = 2; // 当前在线玩家数
+    int32 tables_initial = 3; // 未开局桌子数
+    int32 tables_playing = 4; // 已开局桌子数
+}
+
+message SpeakerRequest {
+    string content = 2;
+}
+
+message SpeakerResponse {
+    string player = 1;
+    string content = 2;
+}
+
+//投票
+message PlayerVoteResponse {
+    int32 code = 1;
+    string player = 2;
+    int32 flag = 3; //0:不同意 1：同意
+    int32 type = 4; //1：解散投票，2：退出投票
+}
+
+//发起投票
+message SponsorVoteResponse {
+    //已同意玩家退出的人
+    message AgreeVote {
+        string player = 1;
+    }
+    uint32 code = 1; // 6位房间号
+    int32 expire_seconds = 2; // 剩余超时时间
+    int32 total_time = 3; //总时间
+    string sponsor = 4; // 发起投票玩家UUID
+    repeated AgreeVote agreevote = 5; //同意解散的玩家列表
+    int32 time_code = 6;
+    int32 type = 7; //1: 解散房间投票 2：玩家退出投票
+}
+
+
+
+
+
