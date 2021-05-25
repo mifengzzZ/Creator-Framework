@@ -1,1 +1,0 @@
-window._CCSettings={platform:"wechatgame",groupList:["default","luobo","enemy","buttle"],collisionMatrix:[[false,false],[false,false,true],[false,true,false,true],[false,false,true,false]],hasResourcesBundle:false,hasStartSceneBundle:false,remoteBundles:["body","common","rPdk"],subpackages:[],launchScene:"db://assets/scenes/SplashScene.fire",orientation:"",server:"",jsList:[]};
