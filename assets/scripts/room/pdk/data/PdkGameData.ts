@@ -1,43 +1,32 @@
-/*
- * @Descripttion: 跑得快本地数据
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { PdkConstant } from "../config/PdkConstant";
 import { GameMapConfig } from "../../config/GameMapConfig";
 import ModelCenter from "../../../data/ModelCenter";
 import BundleManager from "../../../core/manager/BundleManager";
 
-//------------------------------------------------------------------------------------
-
 export default class PdkGameData {
 
     // 游戏ID
-    _gameId : number = 0;
+    _gameId: number = 0;
     // 房间状态
-    _status : number = PdkConstant.GameStatus.wait;
+    _status: number = PdkConstant.GameStatus.wait;
     // 房间玩家列表
-    _roomPlayerList : any = {};
+    _roomPlayerList: any = {};
     // 房间局数
-    _curBoard : number = 0;
+    _curBoard: number = 0;
     // 房间规则
-    _roomInfo : any = null;
+    _roomInfo: any = null;
     // 房主uuid
-    _roomOwnerUid : string = "";
+    _roomOwnerUid: string = "";
     // 房主信息
-    _roomOwnerInfo : any = null;
+    _roomOwnerInfo: any = null;
     // 房间ID
-    _roomID : number = 0;
+    _roomID: number = 0;
     // 客户端本地游戏配置-GameMapConfig
-    _gameConfig : any = null;
+    _gameConfig: any = null;
     // 远程资源清单
-    _bundleRes : any = null;
+    _bundleRes: any = null;
 
-    initData ( data:any ) : boolean {
+    initData(data: any): boolean {
         cc.log("数据 : ", data);
         this._status = data.roomState;
         this._roomOwnerInfo = JSON.parse(data.roomOwnerInfo);
@@ -56,8 +45,8 @@ export default class PdkGameData {
         return true;
     }
 
-    reset () {
+    reset() {
 
     }
-    
+
 }

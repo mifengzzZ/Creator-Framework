@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 写包体基类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 22:53:56
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 export default class BaseSocketWriter {
 
     s_clientWriterFuncMap:any = null;

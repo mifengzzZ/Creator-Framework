@@ -1,12 +1,4 @@
-/*
- * @Descripttion: 大厅通信管理
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 22:20:20
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
+
 import SocketBase from "./base/SocketBase";
 import DataParser from "../utils/DataParser";
 import StringUtils from "../utils/StringUtils";
@@ -19,8 +11,6 @@ import LSReader from "../../lib/LSReader";
 import LSWriter from "../../lib/LSWriter";
 import LSListener from "../../lib/LSListener";
 import NativeManager from "../manager/NativeManager";
-
-//------------------------------------------------------------------------------------
 
 export default class LSManager extends SocketBase {
 

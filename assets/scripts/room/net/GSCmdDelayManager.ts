@@ -1,15 +1,3 @@
-/*
- * @Descripttion: 游戏协议分发管理
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 22:06:09
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
-
-//------------------------------------------------------------------------------------
-
 export default class GSCmdDelayManager {
     
     private static _ins : GSCmdDelayManager;

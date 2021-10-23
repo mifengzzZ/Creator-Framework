@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 帮助
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-13 14:14:29
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 import LogManager from "../manager/LogManager";
 
 export default class ToolUtils {

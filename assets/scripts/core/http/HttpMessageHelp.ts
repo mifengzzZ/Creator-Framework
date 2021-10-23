@@ -1,17 +1,6 @@
-/*
- * @Descripttion: HTTP 请求工具
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import JsonRemoteProxy from "./JsonRemoteProxy";
 import HttpLoginProto from "./HttpLoginProto";
 import { HttpConfig } from "../../config/HttpConfig";
-
-//------------------------------------------------------------------------------------
 
 export default class HttpMessageHelp {
 

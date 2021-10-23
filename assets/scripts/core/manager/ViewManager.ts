@@ -1,18 +1,7 @@
-/*
- * @Descripttion: 视图管理器
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-23 18:33:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import {EventConfig} from "../../config/EventConfig";
 import ViewInfo from "../package/ViewInfo";
 import EventManager from "./EventManager";
 import ResourcesManager from "./ResourcesManager";
-
-//------------------------------------------------------------------------------------
 
 export default class ViewManager {
 

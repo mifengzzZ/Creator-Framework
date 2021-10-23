@@ -1,15 +1,4 @@
-/*
- * @Descripttion: 启动场景
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 11:26:00
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { AppConfig } from "../AppConfig";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

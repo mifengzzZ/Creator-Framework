@@ -1,17 +1,6 @@
-/*
- * @Descripttion: 列表测试界面
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-13 09:54:59
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewBase from "../../core/external/ViewBase";
 import UISuperLayout from "../../core/external/listView/UISuperLayout";
 import ListItem from "./ListItem";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

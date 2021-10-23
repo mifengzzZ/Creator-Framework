@@ -1,16 +1,5 @@
-/*
- * @Descripttion: WebSocket
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:29:21
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { AppConfig } from "../../../AppConfig";
 import ModelCenter from "../../../data/ModelCenter";
-
-//------------------------------------------------------------------------------------
 
 export default class WsSocket {
 

@@ -1,15 +1,4 @@
-/*
- * @Descripttion: 事件分发管理器
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 11:13:00
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import Listener from "../package/Listener";
-
- //------------------------------------------------------------------------------------
 
 export default class EventManager {
 

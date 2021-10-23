@@ -1,19 +1,8 @@
-/*
- * @Descripttion: 全局数据
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 09:16:34
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import StaCnfInfo from "./StaCnfInfo";
 import UserInfo from "./UserInfo";
 import ReconnectionInfo from "./ReconnectionInfo";
 import GameConfigInfo from "./GameConfigInfo";
 import { GameMapConfig } from "../room/config/GameMapConfig";
-
-//------------------------------------------------------------------------------------
 
 export default class ModelCenter {
 

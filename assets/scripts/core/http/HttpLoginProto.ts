@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 大厅协议处理类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import HttpBaseProto from "./HttpBaseProto";
 import { protoLogin } from "../third/protobuf/protoLogin";
 import { AppConfig } from "../../AppConfig";
@@ -16,11 +7,9 @@ import { EventConfig } from "../../config/EventConfig";
 import EventInfo from "../package/EventInfo";
 import ModelCenter from "../../data/ModelCenter";
 
-//------------------------------------------------------------------------------------
-
 export default class HttpLoginProto extends HttpBaseProto {
 
-    loginRequest ( data:any ) : any {
+    loginRequest(data: any): any {
         let msg = protoLogin.LoginRequest.create();
         msg.openId = data.openId;
         msg.channel = AppConfig.channel;
@@ -32,7 +21,7 @@ export default class HttpLoginProto extends HttpBaseProto {
         return protoLogin.LoginRequest.encode(msg).finish();
     }
 
-    loginResponse ( data:string ) {
+    loginResponse(data: string) {
         let uint8Arr = ToolUtils.getInstance().base64ToUint8Array(data);
         let result = protoLogin.LoginResponse.decode(uint8Arr);
         cc.log("loginResponse result : ", result);
@@ -43,7 +32,7 @@ export default class HttpLoginProto extends HttpBaseProto {
         }
     }
 
-    createRoomRequest ( data:any ) : any {
+    createRoomRequest(data: any): any {
         let msg = protoLogin.RoomCreateRequest.create();
         msg.appId = AppConfig.appId;
         msg.gameId = data.game_type;
@@ -56,7 +45,7 @@ export default class HttpLoginProto extends HttpBaseProto {
         return protoLogin.RoomCreateRequest.encode(msg).finish();
     }
 
-    createRoomResponse ( data:any ) {
+    createRoomResponse(data: any) {
         let uint8Arr = ToolUtils.getInstance().base64ToUint8Array(data);
         let result = protoLogin.RoomCreateResponse.decode(uint8Arr);
         cc.log("createRoomResponse result : ", result);

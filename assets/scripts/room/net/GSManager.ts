@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 游戏通信管理
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 22:20:20
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import SocketBase from "../../core/net/base/SocketBase";
 import DataParser from "../../core/utils/DataParser";
 import StringUtils from "../../core/utils/StringUtils";
@@ -18,8 +9,6 @@ import ViewManager from "../../core/manager/ViewManager";
 import { ViewConfig } from "../../config/ViewConfig";
 import { TipsConfig } from "../../config/TipsConfig";
 import LoadingManager from "../../core/manager/LoadingManager";
-
-//------------------------------------------------------------------------------------
 
 export default class GSManager extends SocketBase {
 

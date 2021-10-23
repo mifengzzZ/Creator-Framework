@@ -1,26 +1,18 @@
-/*
- * @Descripttion: 用户信息
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 09:16:34
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 import ToolUtils from "../core/utils/ToolUtils";
 
 export default class UserInfo {
 
-    _uid : string = null;
-    _aid : number = 0;
-    _name : string = "";
-    _location : string = "中国";
-    _userIP : string = "";
-    _iconURL : string = "";
-    _gender : number = 0;
-    _round : number = 0;
-    _regTime : 0;
+    _uid: string = null;
+    _aid: number = 0;
+    _name: string = "";
+    _location: string = "中国";
+    _userIP: string = "";
+    _iconURL: string = "";
+    _gender: number = 0;
+    _round: number = 0;
+    _regTime: 0;
 
-    parseLoginData ( data:any ) {
+    parseLoginData(data: any) {
         this._uid = data.userBaseInfo.uid;
         this._aid = data.userBaseInfo.aid;
         this._name = data.userBaseInfo.userNick;
@@ -30,11 +22,11 @@ export default class UserInfo {
 
         if (cc.sys.isNative) {
             // 本地存储一个aid-发布白名单可用
-            cc.sys.localStorage("userAid", this._aid);   
+            cc.sys.localStorage("userAid", this._aid);
         }
     }
-    
-    getUserInfo () : any {
+
+    getUserInfo(): any {
         let info = {};
         info["name"] = this._name;
         info["iconUrl"] = this._iconURL;

@@ -1,16 +1,5 @@
-/*
- * @Descripttion: 数据解析
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 17:20:35
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ArrayUtils from "../utils/ArrayUtils";
 import Pack from "../package/Pack";
-
-//------------------------------------------------------------------------------------
 
 export default class DataParser {
 

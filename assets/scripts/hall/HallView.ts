@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 大厅界面
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewBase from "../core/external/ViewBase";
 import { EventConfig } from "../config/EventConfig";
 import ViewManager from "../core/manager/ViewManager";
@@ -15,8 +6,6 @@ import ToolUtils from "../core/utils/ToolUtils";
 import HttpMessageHelp from "../core/http/HttpMessageHelp";
 import { HttpConfig } from "../config/HttpConfig";
 import { AppConfig } from "../AppConfig";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

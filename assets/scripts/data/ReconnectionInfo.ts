@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 重连信息
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 09:16:34
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 export default class ReconnectionInfo {
 
     isReconnection : any = false;

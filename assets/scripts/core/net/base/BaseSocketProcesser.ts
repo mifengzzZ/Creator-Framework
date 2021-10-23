@@ -1,24 +1,13 @@
-/*
- * @Descripttion: 管理接受协议分发
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { ErrorCodeConfig } from "../../../config/ErrorCodeConfig";
-
-//------------------------------------------------------------------------------------
 
 export default class BaseSocketProcesser {
 
-    s_saveCmdEventFuncMap : any = null;
+    s_saveCmdEventFuncMap: any = null;
     eventCache = [];
-    stopDispatch : boolean = false;
-    _cmdDelayMgr : any = null;
-    
-    constructor () {
+    stopDispatch: boolean = false;
+    _cmdDelayMgr: any = null;
+
+    constructor() {
         this.s_saveCmdEventFuncMap = {};
         this.eventCache = [];
         this.stopDispatch = false;
@@ -26,15 +15,15 @@ export default class BaseSocketProcesser {
         this.initFuncMap();
     }
 
-    bindMethodToCmd (cmd:any, func:any) {
+    bindMethodToCmd(cmd: any, func: any) {
         this.s_saveCmdEventFuncMap[cmd] = func;
     }
 
-    initCmdDelayManager ( mgr:any) {
+    initCmdDelayManager(mgr: any) {
         this._cmdDelayMgr = mgr;
     }
 
-    checkResponseCode ( data:any ) : boolean {
+    checkResponseCode(data: any): boolean {
         cc.log("------ 收到服务器消息进行错误码检测 ------ ", data);
         if (data && data.code && 1 !== data.code) {
             if (5001 === data.code) {
@@ -49,7 +38,7 @@ export default class BaseSocketProcesser {
         return true;
     }
 
-    dispatchEvent ( info:any ) {
+    dispatchEvent(info: any) {
         if (!this.checkResponseCode(info.data)) {
             return;
         }
@@ -57,29 +46,29 @@ export default class BaseSocketProcesser {
         this._cmdDelayMgr.getInstance().addCmd(info.cmd, info.data);
     }
 
-    onReceivePacket (cmd:any, info:any) {
+    onReceivePacket(cmd: any, info: any) {
         if (this.s_saveCmdEventFuncMap[cmd]) {
             this.s_saveCmdEventFuncMap[cmd](info, cmd);
-        }else {
+        } else {
             if (!this.stopDispatch) {
                 this.dispatchEvent(info);
-            }else {
+            } else {
                 this.addToEventCache(info);
             }
         }
     }
 
-    cacheEvent () {
+    cacheEvent() {
         cc.log("start cache event");
         this.stopDispatch = true;
     }
 
-    addToEventCache ( info:any ) {
+    addToEventCache(info: any) {
         cc.log("cache event ", info.cmd.toString(16));
         this.eventCache.push(info);
     }
-    
-    dispatchCacheEvent () {
+
+    dispatchCacheEvent() {
         cc.log("start dispatch cache event");
         this.stopDispatch = false;
         for (let i = 0; i < this.eventCache.length; i++) {
@@ -90,7 +79,7 @@ export default class BaseSocketProcesser {
         this.eventCache = [];
     }
 
-    clearCacheEvent () {
+    clearCacheEvent() {
         this.eventCache = [];
         cc.log("clear cache event");
     }

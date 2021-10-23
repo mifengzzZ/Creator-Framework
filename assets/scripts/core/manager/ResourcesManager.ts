@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 动态资源缓存管理器
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-11-08 20:59:45
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 export default class ResourcesManager  {
 
     private static _ins : ResourcesManager = null;

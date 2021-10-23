@@ -1,16 +1,5 @@
-/*
- * @Descripttion: Bundle远程资源管理器
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-10-21 21:42:59
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { AppConfig } from "../../AppConfig";
 import LogManager from "./LogManager";
-
-//------------------------------------------------------------------------------------
 
 export default class BundleManager {
 

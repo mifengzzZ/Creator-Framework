@@ -1,16 +1,5 @@
-/*
- * @Descripttion: 读取与写入数据包帮助类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-08-24 22:06:09
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import {SocketConfig} from "../net/base/SocketConfig";
 import Utf8Utils from "./Utf8Utils";
-
-//------------------------------------------------------------------------------------
 
 export default class ByteArray {
     

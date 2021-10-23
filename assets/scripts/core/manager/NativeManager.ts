@@ -1,15 +1,4 @@
-/*
- * @Descripttion: 手机App平台接口管理类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { ConstConfig } from "../../config/ConstConfig";
-
-//------------------------------------------------------------------------------------
 
 window[ConstConfig.WINDOW_CONFIG.APPPLATFORM_CLIPBOARD]           =       "phone_clipboard";        // 复制剪切板
 window[ConstConfig.WINDOW_CONFIG.APPPLATFORM_SHOCK]               =       "phone_shock";            // 手机震动

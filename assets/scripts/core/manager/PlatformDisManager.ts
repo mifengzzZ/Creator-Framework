@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 平台接口调用中间层
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import NativeManager from "./NativeManager";
 import WxMinManager from "./WxMinManager";
 
@@ -33,9 +24,9 @@ import WxMinManager from "./WxMinManager";
 // cc.sys.LINKSURE                 连尚小游戏
 
 export default class PlatformDisManager {
-    
-    _wxMinManager : WxMinManager = WxMinManager.getInstance();
-    _nativeManager : NativeManager = NativeManager.getInstance();
+
+    _wxMinManager: WxMinManager = WxMinManager.getInstance();
+    _nativeManager: NativeManager = NativeManager.getInstance();
 
 
 

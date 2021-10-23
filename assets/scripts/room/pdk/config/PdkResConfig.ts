@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 跑得快资源配置
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-10-27 22:31:34
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 const PdkResConfig = [
 
     {"pdkPlayerLayer" : { path:"prefabs/PdkPlayerLayer", ex:cc.Prefab } },

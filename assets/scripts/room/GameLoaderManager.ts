@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 进入游戏管理
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ModelCenter from "../data/ModelCenter";
 import GSManager from "./net/GSManager";
 import LoadingManager from "../core/manager/LoadingManager";
@@ -16,7 +7,6 @@ import ViewManager from "../core/manager/ViewManager";
 import { ViewConfig } from "../config/ViewConfig";
 import ViewInfo from "../core/package/ViewInfo";
 
-//------------------------------------------------------------------------------------
 /**
  * 本地存储游戏数据对象
  * 进入(退出)游戏将初始化为null

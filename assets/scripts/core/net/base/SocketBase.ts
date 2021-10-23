@@ -1,17 +1,6 @@
-/*
- * @Descripttion: 通信基类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 09:16:34
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { AppConfig } from "../../../AppConfig";
 import ByteArray from "../../utils/ByteArray";
 import ArrayUtils from "../../utils/ArrayUtils";
-
-//------------------------------------------------------------------------------------
 
 export default class SocketBase {
 

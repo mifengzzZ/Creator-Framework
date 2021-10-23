@@ -1,13 +1,13 @@
 /*
- * @Descripttion: 游戏公共资源
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
+ * @Author: your name
+ * @Date: 2021-02-22 08:22:41
+ * @LastEditTime: 2021-10-23 15:29:14
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \TsBasicFrame\assets\scripts\room\config\GameCommonConfig.ts
  */
-
 const GmCmConfig = [
-    {"rmcm_smallSettlement" : { path:"SmallSettlement", ex:cc.Prefab } },
+    { "rmcm_smallSettlement": { path: "SmallSettlement", ex: cc.Prefab } },
 ];
 
-export {GmCmConfig};
+export { GmCmConfig };

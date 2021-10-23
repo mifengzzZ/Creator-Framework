@@ -1,20 +1,9 @@
-/*
- * @Descripttion: 跑得快牌桌
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewBase from "../../core/external/ViewBase";
 import PdkGameData from "./data/PdkGameData";
 import GSCmdDelayManager from "../net/GSCmdDelayManager";
 import { PdkResConfig } from "./config/PdkResConfig";
 import ToolUtils from "../../core/utils/ToolUtils";
 import BundleManager from "../../core/manager/BundleManager";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

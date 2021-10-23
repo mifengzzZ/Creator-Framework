@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 下载游戏界面
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewBase from "../core/external/ViewBase";
 import { AppConfig } from "../AppConfig";
 import ModelCenter from "../data/ModelCenter";
@@ -15,8 +6,6 @@ import BundleManager from "../core/manager/BundleManager";
 import { BdnmAppConfig, BdnmConfig, BdnmMinGameConfig } from "../config/ResConfig";
 import { GmCmConfig } from "./config/GameCommonConfig";
 import { ViewConfig } from "../config/ViewConfig";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

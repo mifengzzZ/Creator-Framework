@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 登录界面
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewBase from "../core/external/ViewBase";
 import ToolUtils from "../core/utils/ToolUtils";
 import { EventConfig } from "../config/EventConfig";
@@ -15,17 +6,15 @@ import { HttpConfig } from "../config/HttpConfig";
 import SceneManager from "../core/manager/SceneManager";
 import { SceneConfig } from "../config/SceneConfig";
 
-//------------------------------------------------------------------------------------
-
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class LoginView extends ViewBase {
 
-    _loginEditBox : any = null;
-    _accountNumStr : string = null;
+    _loginEditBox: any = null;
+    _accountNumStr: string = null;
 
-    start () {
+    start() {
         this.initView();
 
         this._loginEditBox = ToolUtils.getInstance().getNodeByName(this.node, "loginEditBox");
@@ -36,24 +25,24 @@ export default class LoginView extends ViewBase {
         _loginBtn.on("click", this.loginBtnCallback, this);
     }
 
-    loginEditBeganCallBack ( editbox:any ) {
+    loginEditBeganCallBack(editbox: any) {
     }
 
-    loginEditEndedCallBack ( editbox:any ) {
+    loginEditEndedCallBack(editbox: any) {
         cc.log("登陆账号 : ", editbox.string);
         this._accountNumStr = editbox.string;
     }
 
-    loginBtnCallback () {
+    loginBtnCallback() {
         // SceneManager.getInstance().replaceScene(SceneConfig.HALL);
-        HttpMessageHelp.getInstance().sendMessage(HttpConfig.LOGIN_GAME, {openId : this._accountNumStr});
+        HttpMessageHelp.getInstance().sendMessage(HttpConfig.LOGIN_GAME, { openId: this._accountNumStr });
     }
 
-    onClickMask () {
+    onClickMask() {
         this.close();
     }
 
-    onEvent ( event:any ) {
+    onEvent(event: any) {
         let data = event.getUserData();
         switch (event.getName()) {
             case EventConfig.LOGIN_SERVER_READY:

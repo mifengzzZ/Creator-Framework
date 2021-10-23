@@ -1,12 +1,3 @@
-/*
- * @Descripttion: 视图基类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-13 20:08:55
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ViewManager from "../manager/ViewManager";
 import ToolUtils from "../utils/ToolUtils";
 import EventManager from "../manager/EventManager";
@@ -16,8 +7,6 @@ import ResourcesManager from "../manager/ResourcesManager";
 import BundleManager from "../manager/BundleManager";
 import LogManager from "../manager/LogManager";
 import { BdnmConfig } from "../../config/ResConfig";
-
-//------------------------------------------------------------------------------------
 
 const {ccclass, property} = cc._decorator;
 

@@ -1,14 +1,6 @@
 import { AppConfig } from "../../AppConfig";
 import LogManager from "./LogManager";
 
-/*
- * @Descripttion: 广告管理
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-12-22 20:08:18
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 const {ccclass, property} = cc._decorator;
 
 @ccclass

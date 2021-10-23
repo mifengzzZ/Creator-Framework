@@ -1,11 +1,3 @@
-/*
- * @Descripttion: Buffer帮助类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 16:06:58
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-
 export default class ArrayUtils {
 
     private static _ins : ArrayUtils;

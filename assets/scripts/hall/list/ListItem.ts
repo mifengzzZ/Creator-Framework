@@ -1,37 +1,33 @@
 /*
- * @Descripttion: 列表Item
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-13 09:54:59
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
+ * @Author: your name
+ * @Date: 2021-02-22 08:22:41
+ * @LastEditTime: 2021-10-23 16:00:52
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \TsBasicFrame\assets\scripts\hall\list\ListItem.ts
  */
-//------------------------------------------------------------------------------------
-// 外部引入
-
-//------------------------------------------------------------------------------------
-
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ListItem extends cc.Component {
 
-    @property (cc.Label)
-    labelIdx : cc.Label = null;
+    @property(cc.Label)
+    labelIdx: cc.Label = null;
 
-    private _index : number;
-    private _remove : Function;
+    private _index: number;
+    private _remove: Function;
 
-    onShow (info:any, index:number, remove:Function) {
+    onShow(info: any, index: number, remove: Function) {
         this._index = index;
-        this._remove = remove; 
+        this._remove = remove;
         this.labelIdx.string = info.message;
     }
 
-    private onClick () {
+    private onClick() {
         cc.log("点击");
     }
 
-    private onRemove () {
+    private onRemove() {
 
     }
 }

@@ -1,15 +1,4 @@
-/*
- * @Descripttion: 骨骼工具
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-13 14:14:29
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import ToolUtils from "./ToolUtils";
-
-//------------------------------------------------------------------------------------
 
 type TextureAtlasPage = {
     name: string;

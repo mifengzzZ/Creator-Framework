@@ -1,20 +1,9 @@
-/*
- * @Descripttion: HTTP 协议组织类
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-05 23:36:31
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import { HttpConfig } from "../../config/HttpConfig";
 import NativeManager from "../manager/NativeManager";
 import ViewManager from "../manager/ViewManager";
 import LoadingManager from "../manager/LoadingManager";
 import { TipsConfig } from "../../config/TipsConfig";
 import { ViewConfig } from "../../config/ViewConfig";
-
-//------------------------------------------------------------------------------------
 
 export default class JsonRemoteProxy {
 

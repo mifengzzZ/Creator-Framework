@@ -1,16 +1,5 @@
-/*
- * @Descripttion: 大厅协议监听-处理界面
- * @Author: Zhiping Jiang
- * @Information: 564371466@qq.com
- * @Date: 2020-09-06 13:07:12
- * @Belong: Copyright (c) 2020 564371466@qq.com All rights reserved.
- */
-//------------------------------------------------------------------------------------
-// 外部引入
 import LSCmdDelayManager from "../core/net/LSCmdDelayManager";
 import LSManager from "../core/net/LSManager";
-
-//------------------------------------------------------------------------------------
 
 export default class LSListener {
 
