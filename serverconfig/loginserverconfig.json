@@ -1,0 +1,11 @@
+{
+    "quanmin": {
+        "webUrl": "http://nng1.16888game.com",
+        "loginIp": "http://192.168.3.3",
+        "loginPort": "80",
+        "bundleUrl": "https://testpy1.oss-cn-shenzhen.aliyuncs.com/pyRelax/test/quanmin/remote/",
+        "whiteUpSwitch": false,
+        "whitePlayerList": []
+    },
+    "yongzhou": {}
+}
