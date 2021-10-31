@@ -1,16 +1,8 @@
 declare namespace ss {
 
-    //--------------------------------------------------------------------------------------------------
-    // 宏
-
-    // APP
-    export const PLATFORM_APP: Number = 1;
-    // 小游戏
-    export const PLATFORM_MINGAME: Number = 2;
-
-
-    //--------------------------------------------------------------------------------------------------
-    // 数据结构
-
+    export interface LOAD_RES_STRUCT {
+        path: string,
+        ex: string,
+    }
 
 }
