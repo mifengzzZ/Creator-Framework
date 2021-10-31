@@ -1,134 +1,87 @@
 import { AppConfig } from "../AppConfig";
+import { ConstConfig } from "../config/ConstConfig";
+import { ResScene } from "../config/ResConfig";
+import { SceneConfig } from "../config/SceneConfig";
+import SceneBase from "../core/external/SceneBase";
+import SceneInfo from "../core/package/SceneInfo";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class AssetsScene extends cc.Component {
+export default class AssetsScene extends SceneBase {
 
     @property(cc.Asset)
     manifestUrl = null;
 
-    _storagePath : string = "";
-    _am : any = null;
-    _updateListener : any = null;
-    _updating : boolean = false;
-    _canRetry : boolean = false;
-    _progress : number = 0;
+    _storagePath: string = "";
+    _am: any = null;
+    _updateListener: any = null;
+    _updating: boolean = false;
+    _canRetry: boolean = false;
+    _progress: number = 0;
 
-    _tips : cc.Node = null;
-    _updatePanel : cc.Node = null;
-    _updatePanelTxBg : cc.Node = null;
-    _upPanelTx : cc.Label = null;
-    _upPanelProgressBar : cc.ProgressBar = null;
-    _upPanel_progressTx : cc.Label = null;
+    _tips: cc.Node = null;
+    _updatePanel: cc.Node = null;
+    _updatePanelTxBg: cc.Node = null;
+    _upPanelTx: cc.Label = null;
+    _upPanelProgressBar: cc.ProgressBar = null;
+    _upPanel_progressTx: cc.Label = null;
 
-    getChildNodeByName (root:any, name:string) : any {
-        if (!root) {
-            return null;
-        }
-        if (root.name === name) {
-            return root;
-        }
-        for (let index = 0; index < root.childrenCount; index++) {
-            const element = root.children[index];
-            let res = this.getChildNodeByName(element, name);
-            if (res !== null) {
-                return res;
-            }
-        }
-        return null;
-    }
+    init() {
+        this.sceneManager.registerCreator(SceneConfig.LOGIN, new SceneInfo("LoginScene", ResScene.LOGINSCENE));
 
-    start () {
-
-        let bg = this.getChildNodeByName(this.node, "bg");
-        this.scaleBackgroundBG(bg);
-
-        this._tips = this.getChildNodeByName(this.node, "tips");
+        this._tips = this.toolUtils.getNodeByName(this.node, "tips");
         this._tips.active = false;
 
-        this._updatePanel = this.getChildNodeByName(this.node, "updatePanel");
-        this._updatePanelTxBg = this.getChildNodeByName(this.node, "upPanel_txbg");
-        this._upPanelTx = this.getChildNodeByName(this.node, "upPanel_tx");
-        let progress = this.getChildNodeByName(this.node, "upPanel_Progressbar");
-        this._upPanel_progressTx = this.getChildNodeByName(this.node, "upPanel_progressTx").getComponent(cc.Label);;
+        this._updatePanel = this.toolUtils.getNodeByName(this.node, "updatePanel");
+        this._updatePanelTxBg = this.toolUtils.getNodeByName(this.node, "upPanel_txbg");
+        this._upPanelTx = this.toolUtils.getNodeByName(this.node, "upPanel_tx");
+        let progress = this.toolUtils.getNodeByName(this.node, "upPanel_Progressbar");
+        this._upPanel_progressTx = this.toolUtils.getNodeByName(this.node, "upPanel_progressTx").getComponent(cc.Label);;
         this._upPanelProgressBar = progress.getComponent(cc.ProgressBar);
         this._upPanelProgressBar.progress = 0;
 
-        this.getLoginServerConfig();
-    }
-
-    /**
-     * 获取登陆服务器配置
-     */
-    getLoginServerConfig () {
-        // 请求之前还欠缺网络是否可用,不可用弹出提示,让用户检查网络
-        let req = new XMLHttpRequest();
-        req.open("GET", AppConfig.loginConfigUrl, true);
-        req.onreadystatechange = () => {
-            cc.log("req.readyState : ", req.readyState);
-            cc.log("req.status : ", req.status);
-            if (req.readyState === 4 && (req.status >= 200 && req.status < 400)) {
-                let json = JSON.parse(req.responseText);
-                cc.log("req.responseText : ", req.responseText);
-                let g_server = json[AppConfig.appName];
-                if (g_server) {
-                    if (AppConfig.EvnType === AppConfig.EvnEnum.publish) {
-                        AppConfig.webServerUrl = g_server.webUrl;
-                        AppConfig.loginServerIP = g_server.loginIp;
-                        AppConfig.loginServerPort = g_server.loginPort;
-                        AppConfig.bundleUrl = g_server.bundleUrl;
-                        AppConfig.whitePlayerList = g_server.whitePlayerList;
+        if (!AppConfig.isNotUpdate) {
+            this.jumpToLoginScene();
+        } else {
+            if (AppConfig.whiteUpSwitch) {
+                let aid = cc.sys.localStorage.getItem(ConstConfig.USERAID_STORAGE);
+                if (aid && typeof aid === "string") {
+                    let isNotPlayer = false;
+                    for (let index = 0; index < AppConfig.whitePlayerList.length; index++) {
+                        const id = AppConfig.whitePlayerList[index];
+                        if (id === Number(aid)) {
+                            isNotPlayer = true;
+                            break;
+                        }
                     }
-                    if (!AppConfig.isNotUpdate) {
-                        this.jumpToLoginScene();
+                    if (isNotPlayer) {
+                        console.log("测试人员白名单热更新");
+                        this.startHotUpdate();
                     } else {
-                        if (g_server.whiteUpSwitch) {
-                            let aid = cc.sys.localStorage.getItem("userAid");
-                            if (aid && typeof aid === "string") {
-                                let isNotPlayer = false;
-                                for (let index = 0; index < g_server.whitePlayerList.length; index++) {
-                                    const id = g_server.whitePlayerList[index];
-                                    if (id === Number(aid)) {
-                                        isNotPlayer = true;
-                                        break;
-                                    }
-                                }
-                                if (isNotPlayer) {
-                                    cc.log("测试人员白名单热更新");
-                                    this.startHotUpdate();
-                                } else {
-                                    if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "/remote-asset/version.manifest")) {
-                                        cc.log("本地有热更新版本,可以游戏!");
-                                        this.jumpToLoginScene();
-                                    } else {
-                                        cc.log("重置更新与新用户可以更新到发布版本");
-                                        this.startHotUpdate();
-                                    }
-                                }
-                            } else {
-                                cc.log("白名单热更新");
-                                this.startHotUpdate();
-                            }
+                        if (jsb.fileUtils.isFileExist(jsb.fileUtils.getWritablePath() + "/remote-asset/version.manifest")) {
+                            cc.log("本地有热更版本,可以游戏!");
+                            this.jumpToLoginScene();
                         } else {
-                            cc.log("正常热更新");
+                            cc.log("重置更新与新用户可以更新到发布版本");
                             this.startHotUpdate();
                         }
-                    } 
+                    }
                 } else {
-                    this.showTips("获取远程服务器配置信息失败,请重试!", () => {
-                        this.getLoginServerConfig();
-                    });
+                    cc.log("白名单热更新");
+                    this.startHotUpdate();
                 }
+            } else {
+                console.log("正常热更新");
+                this.startHotUpdate();
             }
-        };
-        req.send();
+        }
     }
 
     /**
      * 开始检测热更
      */
-    startHotUpdate () {
+    startHotUpdate() {
         if (!cc.sys.isNative) {
             this.jumpToLoginScene();
             return;
@@ -138,14 +91,14 @@ export default class AssetsScene extends cc.Component {
         cc.log("Storage path for remote asset : " + this._storagePath);
 
         this._am = new jsb.AssetsManager('', this._storagePath, this.versionCompareHandle);
-        this._am.setVerifyCallback((path:any, asset:any) => {
+        this._am.setVerifyCallback((path: any, asset: any) => {
             let compressed = asset.compressed;
             let expectedMD5 = asset.md5;
             let relativePath = asset.path;
             let size = asset.size;
             if (compressed) {
                 return true;
-            }else {
+            } else {
                 return true;
             }
         });
@@ -171,7 +124,7 @@ export default class AssetsScene extends cc.Component {
     /**
      * 版本对比函数
      */
-    versionCompareHandle (versionA:any, versionB:any) {
+    versionCompareHandle(versionA: any, versionB: any) {
         cc.log("JS Custom Version Compare : version A is " + versionA + ", version B is " + versionB);
         let vA = versionA.split('.');
         let vB = versionB.split('.');
@@ -194,12 +147,11 @@ export default class AssetsScene extends cc.Component {
     /**
      * 热更新回调
      */
-    updateCb ( event:any ) {
+    updateCb(event: any) {
         let needRestart = false;
         let failed = false;
         let failedType = "";
-        switch (event.getEventCode())
-        {
+        switch (event.getEventCode()) {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
                 cc.log("缺少本地热更新配置文件 Manifest");
                 failed = true;
@@ -233,7 +185,7 @@ export default class AssetsScene extends cc.Component {
                 needRestart = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_FAILED:
-                cc.log("更新失败 : " , event.getMessage());
+                cc.log("更新失败 : ", event.getMessage());
                 this._updating = false;
                 this._canRetry = true;
                 failedType = "更新失败,点击确定重试!";
@@ -281,7 +233,7 @@ export default class AssetsScene extends cc.Component {
         if (!this._updating && this._canRetry) {
             this.showTips(failedType, () => {
                 this._canRetry = false;
-                this._am.downloadFailedAssets();       
+                this._am.downloadFailedAssets();
             });
         }
     }
@@ -289,11 +241,11 @@ export default class AssetsScene extends cc.Component {
     /**
      * 显示提示文本
      */
-    showTips (content:string, continueCall?:any, cancelCall?:any) {
-        let tx = this.getChildNodeByName(this._tips, "content");
+    showTips(content: string, continueCall?: any, cancelCall?: any) {
+        let tx = this.toolUtils.getNodeByName(this._tips, "content");
         tx.getComponent(cc.Label).string = content;
-        let cancelBtn = this.getChildNodeByName(this._tips, "cancel");
-        let continueBtn = this.getChildNodeByName(this._tips, "continue");
+        let cancelBtn = this.toolUtils.getNodeByName(this._tips, "cancel");
+        let continueBtn = this.toolUtils.getNodeByName(this._tips, "continue");
         if (cancelCall) {
             cancelBtn.active = false;
             continueBtn.x = 0;
@@ -316,27 +268,15 @@ export default class AssetsScene extends cc.Component {
         this._tips.active = true;
     }
 
-    jumpToLoginScene ( ) {
-        cc.director.loadScene("LoginScene", (err:any, scene:any) => {
-            let container = scene.children[0];
-            let script = container.addComponent("LoginScene");
-            //@ts-ignore
-            script.setSceneType("login");
-        });
+    jumpToLoginScene() {
+        this.sceneManager.replaceScene(SceneConfig.LOGIN);
     }
 
-    onDestroy () {
+    onDestroy() {
         if (this._updateListener) {
             this._am.setEventCallback(null);
             this._updateListener = null;
         }
-    }
-
-    scaleBackgroundBG ( node:cc.Node ) {
-        let showAll = Math.min(cc.view.getCanvasSize().width / node.width, cc.view.getCanvasSize().height / node.height);
-        let realWidth = node.width * showAll;
-        let realHeight = node.height * showAll;
-        node.scale = Math.max(cc.view.getCanvasSize().width / realWidth, cc.view.getCanvasSize().height / realHeight);
     }
 
 }

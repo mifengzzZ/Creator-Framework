@@ -1,32 +1,12 @@
 {
   "ver": "1.1.2",
-  "uuid": "7f8eed9d-3a30-4260-8d80-7566efaf72eb",
+  "uuid": "a8b1c760-51b6-4941-8aa1-52b56fdba329",
   "isBundle": false,
   "bundleName": "",
-  "priority": "1",
-  "compressionType": {
-    "android": "default",
-    "web-mobile": "default",
-    "win32": "default",
-    "ios": "default"
-  },
-  "optimizeHotUpdate": {
-    "android": false,
-    "web-mobile": false,
-    "win32": false,
-    "ios": false
-  },
-  "inlineSpriteFrames": {
-    "android": false,
-    "web-mobile": false,
-    "win32": false,
-    "ios": false
-  },
-  "isRemoteBundle": {
-    "android": true,
-    "web-mobile": false,
-    "win32": true,
-    "ios": true
-  },
+  "priority": 1,
+  "compressionType": {},
+  "optimizeHotUpdate": {},
+  "inlineSpriteFrames": {},
+  "isRemoteBundle": {},
   "subMetas": {}
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>login_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{143,137}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{143,137}}</string>
+                <key>sourceSize</key>
+                <string>{143,137}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>login_texture.png</string>
+            <key>size</key>
+            <string>{147,141}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:cdfd3fe263d623ce9c4fc7bfe3cd9f98:608907329e99c0d7ad00a3d00e0c7412:384b3f4c2e878eb50a4c8bbba65c94e2$</string>
+            <key>textureFileName</key>
+            <string>login_texture.png</string>
+        </dict>
+    </dict>
+</plist>

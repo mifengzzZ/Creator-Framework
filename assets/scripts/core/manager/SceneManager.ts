@@ -2,16 +2,22 @@ import SceneInfo from "../package/SceneInfo";
 import EventManager from "./EventManager";
 import EventInfo from "../package/EventInfo";
 import { EventConfig } from "../../config/EventConfig";
+import SceneBase from "../external/SceneBase";
+import DonotTouchManager from "./DonotTouchManager";
+import BundleManager from "./BundleManager";
+import { AppConfig } from "../../AppConfig";
 
 export default class SceneManager {
 
-    private static _ins : SceneManager = null;
+    private static _ins: SceneManager = null;
 
-    private _curSceneType : string = "";
+    private _curSceneType: string = "";
 
-    _createList : any = {};
-    
-    static getInstance () : SceneManager {
+    private _curSceneScript: SceneBase = null;
+
+    _createList: any = {};
+
+    static getInstance(): SceneManager {
         if (!this._ins) {
             this._ins = new SceneManager();
         }
@@ -23,7 +29,7 @@ export default class SceneManager {
      * @param SceneType 
      * @param sceneInfo 
      */
-    registerCreator (SceneType:string, sceneInfo:SceneInfo) {
+    registerCreator(SceneType: string, sceneInfo: SceneInfo) {
         if (!this._createList[SceneType]) {
             this._createList[SceneType] = sceneInfo;
         }
@@ -32,40 +38,57 @@ export default class SceneManager {
     /**
      * 切场景
      */
-    replaceScene (sceneType:string, userData?:any) {
+    replaceScene(sceneType: string, userData?: any) {
         if (sceneType && this._createList[sceneType]) {
-            let info = this._createList[sceneType];
+            DonotTouchManager.getInstance().showDonotTouchView();
+            let info: SceneInfo = this._createList[sceneType];
             // 清理所有弹窗
             EventManager.getInstance().dispatchEvent(new EventInfo(EventConfig.SCENE_CHANGE));
-            cc.director.loadScene(info.firePath, (err:any, scene:any) => {
-                // 绑定组件脚本
-                let container = scene.children[0];
-                let script = container.addComponent(info.tsPath);
-                this._curSceneType = sceneType;
-                //@ts-ignore
-                script.setSceneType(sceneType);
-                if (userData) {
+            let bd: cc.AssetManager.Bundle = BundleManager.getInstance().getBundleByName(AppConfig.bundleUrl);
+            if (bd) {
+                bd.loadScene(info.firePath, (err: Error, asset: cc.SceneAsset) => {
+                    DonotTouchManager.getInstance().hideDonotTouchView();
+                    let scene = asset.scene;
+                    // 绑定组件脚本
+                    let container = scene.children[0];
+                    let script = container.addComponent(info.tsPath);
+                    this._curSceneType = sceneType;
+                    this._curSceneScript = script;
                     //@ts-ignore
-                    script.setUserData(userData);   
-                }
-            });
-        }else {
+                    script.setSceneType(sceneType);
+                    if (userData) {
+                        //@ts-ignore
+                        script.setUserData(userData);
+                    }
+                    cc.director.runScene(scene);
+                })
+            }
+        } else {
             cc.log("ERROR: invaild scene type = ", sceneType);
         }
     }
-    
+
     /**
      * 获取当前场景类型
      */
-    getCurSceneType () : string {
+    getCurSceneType(): string {
         return this._curSceneType;
     }
 
     /**
      * 设置当前场景类型
      */
-    setCurSceneType ( sceneType:string ) {
+    setCurSceneType(sceneType: string) {
         this._curSceneType = sceneType;
+    }
+
+
+    public set curSceneScript(v: SceneBase) {
+        this._curSceneScript = v;
+    }
+
+    public get curSceneScript(): SceneBase {
+        return this._curSceneScript;
     }
 
 }

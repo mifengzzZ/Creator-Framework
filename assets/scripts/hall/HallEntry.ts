@@ -9,20 +9,20 @@ import EntryBase from "../core/external/EntryBase";
 
 export default class HallEntry extends EntryBase {
 
-    private static _ins : HallEntry = null;
+    private static _ins: HallEntry = null;
 
-    static getInstance () : HallEntry {
+    static getInstance(): HallEntry {
         if (!this._ins) {
             this._ins = new HallEntry();
         }
         return this._ins;
     }
 
-    init () {
+    init() {
         SceneManager.getInstance().registerCreator(SceneConfig.HALL, new SceneInfo("HallScene", ResScene.HALLSCENE));
 
-        ViewManager.getInstance().registerCreator(ViewConfig.HALLVIEW, new ViewInfo("HallView", this.bodyBundleRes["bd_hallview"]));
-        ViewManager.getInstance().registerCreator(ViewConfig.GUIDEVIEW, new ViewInfo("GuideView", this.bodyBundleRes["bd_guideview"]));
+        // ViewManager.getInstance().registerCreator(ViewConfig.HALLVIEW, new ViewInfo("HallView", this.bodyBundleRes["bd_hallview"]));
+        // ViewManager.getInstance().registerCreator(ViewConfig.GUIDEVIEW, new ViewInfo("GuideView", this.bodyBundleRes["bd_guideview"]));
     }
 
 }

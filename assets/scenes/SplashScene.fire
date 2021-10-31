@@ -75,16 +75,16 @@
         "__id__": 5
       },
       {
-        "__id__": 7
+        "__id__": 8
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 10
       },
       {
-        "__id__": 10
+        "__id__": 11
       }
     ],
     "_prefab": null,
@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        473.715895870088,
+        364.58806344270437,
         0,
         0,
         0,
@@ -245,6 +245,9 @@
     "_components": [
       {
         "__id__": 6
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -328,6 +331,16 @@
     "_id": "8572YFp0xJirEzVxtl5TzR"
   },
   {
+    "__type__": "c4049VbGPNCnajqew9bZYPD",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_id": "14bV9Ax1dIA4tU2LoVoqD8"
+  },
+  {
     "__type__": "cc.Node",
     "_name": "icon",
     "_objFlags": 0,
@@ -338,7 +351,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 8
+        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -394,7 +407,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 7
+      "__id__": 8
     },
     "_enabled": true,
     "_materials": [
@@ -405,7 +418,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "0c2360b2-42e1-4720-9f75-2826e9ecc3f2"
+      "__uuid__": "44e3e5ab-ac43-4d8d-89ce-9920e9c31a3b"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -418,7 +431,9 @@
     "_fillStart": 0,
     "_fillRange": 0,
     "_isTrimmedMode": true,
-    "_atlas": null,
+    "_atlas": {
+      "__uuid__": "676f9935-767f-4982-b167-c61db3a76a97"
+    },
     "_id": "7cIlE4zKxNJ6VSzm+3QOkx"
   },
   {
@@ -434,18 +449,18 @@
       "width": 1334,
       "height": 750
     },
-    "_fitWidth": false,
+    "_fitWidth": true,
     "_fitHeight": true,
     "_id": "59Cd0ovbdF4byw5sbjJDx7"
   },
   {
-    "__type__": "e5f2fx6EsdKaIwefArW6p9c",
+    "__type__": "aee101SKBpBv5BV2SITyhmO",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
     },
     "_enabled": true,
-    "_id": "43McADQhFAbqeA6Dyg7u5q"
+    "_id": "c53wus9FhDZJhWRjelat1g"
   }
 ]

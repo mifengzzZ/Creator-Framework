@@ -16,7 +16,7 @@ export default class InitReg {
     init() {
         LoginEntry.getInstance().init();
         HallEntry.getInstance().init();
-        RoomEntry.getInstance().init();
+        // RoomEntry.getInstance().init();
     }
 
 }

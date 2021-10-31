@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "c8db80a9-9cad-4b6f-814d-c667cd82b8db",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 65,
+  "height": 60,
+  "platformSettings": {},
+  "subMetas": {
+    "roomLayer_icon_LiKai": {
+      "ver": "1.0.4",
+      "uuid": "c39c72a6-5771-41e9-b2e4-734b83e6314d",
+      "rawTextureUuid": "c8db80a9-9cad-4b6f-814d-c667cd82b8db",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 65,
+      "height": 60,
+      "rawWidth": 65,
+      "rawHeight": 60,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

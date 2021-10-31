@@ -1,11 +1,8 @@
-import SceneManager from "../core/manager/SceneManager";
-import { SceneConfig } from "../config/SceneConfig";
-import SceneInfo from "../core/package/SceneInfo";
 import ViewManager from "../core/manager/ViewManager";
 import { ViewConfig } from "../config/ViewConfig";
 import ViewInfo from "../core/package/ViewInfo";
-import { ResScene } from "../config/ResConfig";
 import EntryBase from "../core/external/EntryBase";
+import { BundleResCfg } from "../config/ResConfig";
 
 export default class LoginEntry extends EntryBase {
 
@@ -19,14 +16,11 @@ export default class LoginEntry extends EntryBase {
     }
 
     init() {
-        SceneManager.getInstance().registerCreator(SceneConfig.LOGIN, new SceneInfo("LoginScene", ResScene.LOGINSCENE));
-
         // tips
-        ViewManager.getInstance().registerCreator(ViewConfig.MESSAGE, new ViewInfo("MessageView", this.bodyBundleRes["bd_messageview"]));
+        ViewManager.getInstance().registerCreator(ViewConfig.MESSAGE, new ViewInfo("MessageView", BundleResCfg.messageview));
 
         // login
-        ViewManager.getInstance().registerCreator(ViewConfig.LOGINVIEW, new ViewInfo("LoginView", this.bodyBundleRes["bd_loginview"]));
-
+        ViewManager.getInstance().registerCreator(ViewConfig.LOGINVIEW, new ViewInfo("LoginView", BundleResCfg.loginview));
     }
 
 }

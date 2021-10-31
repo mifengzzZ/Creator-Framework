@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "c77f6b97-ff74-4aff-b35b-3973dbb547d1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 58,
+  "height": 59,
+  "platformSettings": {},
+  "subMetas": {
+    "roomLayer_icon_SheZhi": {
+      "ver": "1.0.4",
+      "uuid": "bbd8d5f8-2182-4590-a9c2-a22ff905b95f",
+      "rawTextureUuid": "c77f6b97-ff74-4aff-b35b-3973dbb547d1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 58,
+      "height": 59,
+      "rawWidth": 58,
+      "rawHeight": 59,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

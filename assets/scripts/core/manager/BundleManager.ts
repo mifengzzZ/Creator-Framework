@@ -3,55 +3,66 @@ import LogManager from "./LogManager";
 
 export default class BundleManager {
 
-    private static _ins : BundleManager = null;
+    private _version: "1.0.0";
 
-    private _bundleMap : any = {};
-    
-    private _bundleResMap : any = {};
+    private static _ins: BundleManager = null;
 
-    private _logUtil : LogManager = LogManager.getInstance();
+    private _bundleMap: Map<string, cc.AssetManager.Bundle> = new Map();
 
-    static getInstance () : BundleManager {
+    private _bundleResMap: any = {};
+
+    static getInstance(): BundleManager {
         if (!this._ins) {
             this._ins = new BundleManager();
         }
         return this._ins;
     }
 
-    /**
-     * 通过url缓存bundle资源,并保存
-     */
-    loadBundleByUrl ( folderPath:string, callback?:any ) {
-        cc.assetManager.loadRemote(AppConfig.bundleUrl + folderPath, (err:any, bundle:cc.AssetManager.Bundle) => {
-            if (err) {
-                return cc.log("[BundleManager] load " + folderPath + " bundle faild.");
-            } else {
-                cc.log("[BundleManager] load " + folderPath + " bundle success.")
-                if (callback) {
-                    callback(bundle);
+    getVersion() {
+        return this._version;
+    }
+
+    private load(): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            cc.assetManager.loadBundle(AppConfig.bundleUrl, (err: any, bundle: cc.AssetManager.Bundle) => {
+                if (err) {
+                    LogManager.getInstance().log("[BundleManager] init bundle res faild.");
+                } else {
+                    console.log("[BundleManager] bundle : ", bundle);
+                    LogManager.getInstance().log("[BundleManager] init bundle res success.");
+                    BundleManager.getInstance().saveBundleByName(bundle, AppConfig.bundleUrl);
+                    resolve(true);
                 }
-            }
+            });
         });
+    }
+
+    async loadBundle() {
+        if (AppConfig.EvnType === AppConfig.EvnEnum.publish) {
+            AppConfig.bundleUrl = AppConfig.bundleUrl + this._version + "/" + "res/";
+        }
+        console.log("[BundleManager] AppConfig.bundleUrl : ", AppConfig.bundleUrl);
+        return await this.load();
     }
 
     /**
      * 保存bundle
      */
-    saveBundleByName ( bundle:cc.AssetManager.Bundle, bundleName:string ) {
+    saveBundleByName(bundle: cc.AssetManager.Bundle, bundleName: string) {
         if (!this._bundleMap[bundleName]) {
             this._bundleMap[bundleName] = bundle;
             this._bundleResMap[bundleName] = {};
         } else {
-            cc.log("[BundleManager] error : cur " + bundleName + " exist; Need to reset please first remove");
+            console.log("[BundleManager] error : cur " + bundleName + " exist; Need to reset please first remove");
         }
     }
 
     /**
      * 获取bundle
      */
-    getBundleByName ( bundleName:string ) : cc.AssetManager.Bundle {
+    getBundleByName(bundleName: string): cc.AssetManager.Bundle {
         if (!this._bundleMap[bundleName]) {
-            cc.log("[BundleManager] not found " + bundleName + " bundle.");
+            console.log("[BundleManager] not found " + bundleName + " bundle.");
             return null;
         }
         return this._bundleMap[bundleName];
@@ -61,54 +72,140 @@ export default class BundleManager {
      * 获取Bundle所对应的资源对象列表
      * @param bundleName
      */
-    getBundleResByName ( bundleName:string ) : any {
+    getBundleResListByName(bundleName: string) {
         if (!this._bundleResMap[bundleName]) {
-            cc.log("[BundleManager] not found " + bundleName + " bundleRes.");
+            console.log("[BundleManager] not found " + bundleName + " bundleRes.");
             return null;
         }
         return this._bundleResMap[bundleName];
     }
 
     /**
-     * 释放bundle
+     * 获取Bundle对应资源列表中的单个资源
      */
-    removeBundleByName ( bundleName:string ) {
+    getBundleSignByName(bundleName: string, signName: string) {
+        let reslist = this.getBundleResListByName(bundleName);
+        if (reslist && reslist[signName]) {
+            return reslist[signName];
+        }
+        return null;
+    }
+
+    /**
+     * 根据BundleName加载单个资源
+     */
+    loadSignResByBundleName(bundleName: string, res: ss.LOAD_RES_STRUCT) {
+        return new Promise((resolve, reject) => {
+            let bundle: cc.AssetManager.Bundle = this._bundleMap[bundleName];
+            if (bundle) {
+                if (this.getBundleSignByName(bundleName, res.path)) {
+                    resolve(this.getBundleSignByName(bundleName, res.path));
+                }
+                let resType = null;
+                if (res.ex === "cc.Prefab") {   // 预制体
+                    resType = cc.Prefab;
+                } else if (res.ex === "cc.AudioClip") { // 声音
+                    resType = cc.AudioClip;
+                } else if (res.ex === "cc.SpriteFrame") { // 图片
+                    resType = cc.SpriteFrame;
+                } else if (res.ex === "sp.SkeletonData") { // 骨骼
+                    resType = sp.SkeletonData;
+                } else if (res.ex === "cc.SpriteAtlas") { // 图集
+                    resType = cc.SpriteAtlas;
+                }
+                if (resType) {
+                    bundle.load(res.path, resType, (err, asset) => {
+                        if (!err) {
+                            this._bundleResMap[bundleName][res.path] = asset;
+                            resolve(asset);
+                        }
+                    });
+                }
+            };
+        });
+    }
+
+    /**
+     * 根据BundleName加载列表资源
+     */
+    cacheBundleResList(bundleName: string, resList: Array<ss.LOAD_RES_STRUCT>, callback?: Function) {
+        let bundle: cc.AssetManager.Bundle = this._bundleMap[bundleName];
+        if (bundle) {
+            for (let index = 0; index < resList.length; index++) {
+                const element = resList[index];
+                if (this.getBundleSignByName(bundleName, element.path)) {
+                    callback();
+                    continue;
+                }
+                let resType = null;
+                if (element.ex === "cc.Prefab") {   // 预制体
+                    resType = cc.Prefab;
+                } else if (element.ex === "cc.AudioClip") { // 声音
+                    resType = cc.AudioClip;
+                } else if (element.ex === "cc.SpriteFrame") { // 图片
+                    resType = cc.SpriteFrame;
+                } else if (element.ex === "sp.SkeletonData") { // 骨骼
+                    resType = sp.SkeletonData;
+                } else if (element.ex === "cc.SpriteAtlas") { // 图集
+                    resType = cc.SpriteAtlas;
+                }
+                if (resType) {
+                    bundle.load(element.path, resType, (err, asset) => {
+                        if (!err) {
+                            this._bundleResMap[bundleName][element.path] = asset;
+                            callback();
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 释放bundle加载的所有资源
+     */
+    releaseBundleByName(bundleName: string) {
         if (!this._bundleMap[bundleName]) {
-            cc.log("[BundleManager] remove faild, because the not found " + bundleName + " bundle.");
+            console.log("[BundleManager] releaseBundleByName faild, because the not found " + bundleName + " bundle.");
         } else {
             this._bundleMap[bundleName].releaseAll();
             cc.assetManager.removeBundle(this._bundleMap[bundleName]);
             this._bundleMap[bundleName] = null;
             this._bundleResMap[bundleName] = {};
-            cc.log("[BundleManager] remove " + bundleName + " bundle success.");
-        }
-    }
-    
-    /**
-     * 缓存bundle索引的资源
-     */
-    cacheBundleResources ( bundleName:string, resList:any, callback?:Function ) {
-        for (let index = 0; index < resList.length; index++) {
-            const element = resList[index];
-            for (const key in element) {
-                this._bundleMap[bundleName].load(element[key].path, element[key].ex, (err, asset) => {
-                    this._logUtil.log("element[key].path : " + element[key].path);
-                    cc.log("asset : ", asset);
-                    this._bundleResMap[bundleName][key] = asset;
-                    if (element[key].ex === cc.Prefab || element[key].ex === cc.AudioClip || element[key].ex === sp.SkeletonData || element[key].ex === cc.SpriteAtlas) {
-                        asset.addRef(); 
-                    }
-                    callback();
-                });
-            }
+            console.log("[BundleManager] remove " + bundleName + " bundle success.");
         }
     }
 
     /**
-     * 通过Bundle获取缓存资源
+     * 释放bundle加载的单个资源
      */
-    getCacheRes ( bundleName:string, res:string ) {
-        return this._bundleResMap[bundleName][res];
+    releaseBundleSignResByName(bundleName: string, res: ss.LOAD_RES_STRUCT) {
+        if (!this._bundleMap[bundleName]) {
+            console.log("[BundleManager] releaseBundleSignResByName faild, because the not found " + bundleName + " bundle.");
+        } else {
+            let bundle: cc.AssetManager.Bundle = this._bundleMap[bundleName];
+            bundle.release(res.path);
+            this._bundleResMap[bundleName][res.path] = null;
+            console.log("[BundleManager] releaseBundleSignResByName " + res.path + " success.");
+        }
     }
-    
+
+    /**
+     * 释放bundle加载的资源列表
+     */
+    releaseBundleReslistByName(bundleName: string, resList: Array<ss.LOAD_RES_STRUCT>) {
+        if (!this._bundleMap[bundleName]) {
+            console.log("[BundleManager] releaseBundleReslistByName faild, because the not found " + bundleName + " bundle.");
+        } else {
+            let bundle: cc.AssetManager.Bundle = this._bundleMap[bundleName];
+            for (let index = 0; index < resList.length; index++) {
+                const element = resList[index];
+                bundle.release(element.path);
+                this._bundleResMap[bundleName][element.path] = null;
+                console.log("[BundleManager] releaseBundleSignResByName " + element.path + " success.");
+            }
+        }
+    }
+
 }

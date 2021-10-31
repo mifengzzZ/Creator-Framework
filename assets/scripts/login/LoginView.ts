@@ -14,9 +14,7 @@ export default class LoginView extends ViewBase {
     _loginEditBox: any = null;
     _accountNumStr: string = null;
 
-    start() {
-        this.initView();
-
+    init() {
         this._loginEditBox = ToolUtils.getInstance().getNodeByName(this.node, "loginEditBox");
         this._loginEditBox.on("editing-did-began", this.loginEditBeganCallBack, this);
         this._loginEditBox.on("editing-did-ended", this.loginEditEndedCallBack, this);
@@ -34,7 +32,6 @@ export default class LoginView extends ViewBase {
     }
 
     loginBtnCallback() {
-        // SceneManager.getInstance().replaceScene(SceneConfig.HALL);
         HttpMessageHelp.getInstance().sendMessage(HttpConfig.LOGIN_GAME, { openId: this._accountNumStr });
     }
 
@@ -46,7 +43,6 @@ export default class LoginView extends ViewBase {
         let data = event.getUserData();
         switch (event.getName()) {
             case EventConfig.LOGIN_SERVER_READY:
-                cc.log("登陆成功");
                 SceneManager.getInstance().replaceScene(SceneConfig.HALL);
                 break;
             default:

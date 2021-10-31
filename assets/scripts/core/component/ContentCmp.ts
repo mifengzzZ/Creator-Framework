@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-02-22 08:22:41
- * @LastEditTime: 2021-10-23 16:09:10
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \TsBasicFrame\assets\scripts\core\component\ContentCmp.ts
- */
 const { ccclass, property } = cc._decorator;
 
 @ccclass

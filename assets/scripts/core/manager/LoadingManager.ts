@@ -1,6 +1,9 @@
-import { BdnmConfig } from "../../config/ResConfig";
+import { AppConfig } from "../../AppConfig";
+import { BundleResCfg } from "../../config/ResConfig";
 import BundleManager from "./BundleManager";
+import DonotTouchManager from "./DonotTouchManager";
 import LogManager from "./LogManager";
+import SceneManager from "./SceneManager";
 
 export default class LoadingManager {
 
@@ -8,7 +11,6 @@ export default class LoadingManager {
     private _timeOut: number = 20;
     private _timer: any = null;
     private _loadingCount: number = 0;
-    private _logUtil: LogManager = LogManager.getInstance();
     private _bundleRes: BundleManager = BundleManager.getInstance();
 
     private static _ins: LoadingManager = null;
@@ -23,16 +25,22 @@ export default class LoadingManager {
     /**
      * 显示正在加载界面
      */
-    showLoadingView() {
+    async showLoadingView() {
         if (!this._loadingView) {
-            this._loadingView = cc.instantiate(this._bundleRes.getCacheRes(BdnmConfig.body, "bd_loadingview"));
-            let anim = this._loadingView.getComponent(cc.Animation);
-            let animState = anim.play("loading");
+            let prefab = this._bundleRes.getBundleSignByName(AppConfig.bundleUrl, BundleResCfg.loadingview.path)
+            if (!prefab) {
+                DonotTouchManager.getInstance().showDonotTouchView();
+            }
+            prefab = await BundleManager.getInstance().loadSignResByBundleName(AppConfig.bundleUrl, BundleResCfg.loadingview);
+            this._loadingView = cc.instantiate(prefab);
+            let anim: cc.Animation = this._loadingView.getComponent(cc.Animation);
+            let animState = anim.play("loading_animation_zhuan");
             animState.wrapMode = cc.WrapMode.Loop;
-            cc.director.getScene().addChild(this._loadingView, 2);
+            SceneManager.getInstance().curSceneScript.popNode.addChild(this._loadingView, 999);
             this._timer = setTimeout(() => {
                 this.clearLoadingView();
             }, this._timeOut * 1000);
+            DonotTouchManager.getInstance().hideDonotTouchView();
         }
         this._loadingCount += 1;
         cc.log("LoadingView count ++ " + this._loadingCount);
